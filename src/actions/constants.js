@@ -1,0 +1,7 @@
+'use strict';
+
+export const API_FEATCH_SUCCESS = 'API_FEATCH_SUCCESS';
+export const API_FEATCH_ERROR = 'API_FEATCH_ERROR';
+export const API_ACTIVE_DATA = 'API_ACTIVE_DATA';
+
+export const REDUX_RESET_STATE = 'REDUX_RESET_STATE';

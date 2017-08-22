@@ -3,10 +3,12 @@ const express = require('express')
 const app = express();
 
 
-const indexPath = path.join(__dirname, './dist/index.html')
+const indexPath = path.join(__dirname, './dist/index.html');
+const jsonPath = path.join(__dirname, './app.json')
 const publicPath = express.static(path.join(__dirname, './dist'))
 
 app.use('/dist', publicPath)
+app.get('/api', function (req, res) { res.sendFile(jsonPath) });
 app.get('*', function (req, res) { res.sendFile(indexPath) });
 
 const port = (process.env.PORT || 8083)

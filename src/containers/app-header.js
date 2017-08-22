@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as Action from '../actions';
 
 class AppHeader extends Component {
   render() {
@@ -17,9 +18,11 @@ class AppHeader extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-  };
+
+const mapDispatchToProps = ( dispatch, ownProps ) => {
+	return {
+		getDashboardData: (_filter) => dispatch( Action.getDashboardData(_filter) )
+	}
 }
 
-export default connect(mapStateToProps)(AppHeader);
+export default connect(mapDispatchToProps)(AppHeader);
