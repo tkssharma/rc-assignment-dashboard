@@ -1,0 +1,137 @@
+body {
+  font-size: 18px;
+  background-color: rgba(204, 204, 204, 0.41);
+  font-family: "Roboto", sans-serif !important;
+  margin: 0px;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 500;
+  line-height: 1.1;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+  color: inherit;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+}
+
+h3 .applied-filters {
+  font-size: 14px;
+  color: rgba(39, 31, 31, 0.45);
+}
+
+.filter-action {
+  color: #15c187;
+  font-size: 14px;
+  margin-left: 40px;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+  height: 100px;
+  padding: 10px;
+  color: black;
+  .search {
+    margin-right: 100px;
+    margin-top: 20px;
+    .search-field {
+      position: relative;
+      color: #555;
+      display: block;
+    }
+    .field-control {
+      display: block;
+      width: 100%;
+      height: 25px;
+      padding: 6px 20px;
+      font-size: 14px;
+      line-height: 1.42857143;
+      color: #555;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid #ccc;
+    }
+  }
+}
+
+.result-container {
+  padding: 10px;
+  margin: auto;
+  width: 70%;
+  height: 100%;
+  h5 {
+    text-align: center;
+    color: #9e9a9a;
+  }
+}
+
+.app-results {
+  margin-top: 20px;
+  min-height: 800px;
+  background-color: #ffffff;
+}
+
+.app-intro {
+  font-size: large;
+}
+
+.footer {
+  height: 70px;
+  background-color: #ccc;
+  h4 {
+    vertical-align: middle;
+    text-align: center;
+  }
+}
+
+.search-result-list {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  .search-result-list-item {
+    padding: 20px;
+    border-bottom: solid 5px rgba(204, 204, 204, 0.19);
+    .profile {
+      display: flex;
+      order: 1;
+      flex-direction: row;
+      .profile-pic {
+        flex-grow: 0;
+        order: 1;
+        width: 100px;
+        border-radius: 50px;
+        height: auto;
+      }
+      .img-responsive {
+        height: auto;
+        width: 100px;
+        border-radius: 50px;
+      }
+      .details {
+        order: 2;
+        margin-left: 30px;
+        flex-grow: 2;
+      }
+    }
+  }
+}
+
+.details-name {
+  color: #15c187;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
