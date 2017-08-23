@@ -9,7 +9,7 @@
     "scss-compile": "node-sass  public/css/main.scss -o public/css/",
     "watch-css": "nodemon -e scss -x \"npm run scss-compile\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "NODE_ENV=production webpack --config ./webpack.prod.config.js  --hot --inline",
+    "build": "NODE_ENV=production webpack --config ./webpack.prod.config.js --w --hot --inline",
     "start": "node server.js"
   },
   "author": "",

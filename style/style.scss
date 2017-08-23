@@ -73,8 +73,9 @@ h3 .applied-filters {
 
 .app-results {
   margin-top: 20px;
-  min-height: 800px;
-  background-color: #ffffff;
+  max-height: 650px;
+  overflow-x: scroll;
+  background-color: #fff;
 }
 
 .app-intro {

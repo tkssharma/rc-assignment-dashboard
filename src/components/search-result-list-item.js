@@ -7,7 +7,7 @@ const ResultListItem = function(props) {
 	return (
 		<div className="profile" onClick={e => props.selectCandidate(props.candidate,e)}>
 			 <div className="profile-pic">
-					<img src="https://avatars1.githubusercontent.com/u/10391135?v=4&s=460" className="img-responsive" />
+					<img src={profile_picture} className="img-responsive" />
 			 </div>
 			 <div className="details">
 						<h3 className="details-name">{first_name} {last_name}</h3>

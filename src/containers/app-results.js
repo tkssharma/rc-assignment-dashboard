@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ResultList from '../components/search-result-list';
+import {message, notification} from 'antd';
 
 import * as Action from '../actions';
 class AppResults extends Component {
@@ -11,14 +12,17 @@ class AppResults extends Component {
   }
   selectedCandidate(_data){
     console.log(_data);
-    this.props.setCandidateData(_data)
+    this.props.setCandidateData(_data);
   }
 
   fetchList(){
     if(this.props.candidates){
       return (
-        <div className="app-results">
-          <ResultList selectCandidate={this.selectedCandidate}  list={this.props.candidates}/>
+        <div>
+          <h5>showing {this.props.candidates.length} results</h5>
+          <div className="app-results">
+            <ResultList selectCandidate={this.selectedCandidate}  list={this.props.candidates}/>
+          </div>
         </div>
       )
     }else{
@@ -29,7 +33,6 @@ class AppResults extends Component {
     console.log('again....');
     return (
       <div className="result-container">
-      <h5>showing x results</h5>
          {this.fetchList()}
       </div>
     )
