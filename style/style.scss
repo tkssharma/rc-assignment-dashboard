@@ -27,6 +27,7 @@ h3 .applied-filters {
 .filter-action {
   color: #15c187;
   font-size: 14px;
+  float: right;
   margin-left: 40px;
 }
 
@@ -45,19 +46,27 @@ h3 .applied-filters {
       color: #555;
       display: block;
     }
-    .field-control {
-      display: block;
-      width: 100%;
-      height: 25px;
-      padding: 6px 20px;
-      font-size: 14px;
-      line-height: 1.42857143;
-      color: #555;
-      background-color: #fff;
-      background-image: none;
-      border: 1px solid #ccc;
-    }
   }
+}
+.select-filters {
+  display: flex;
+  flex-direction: row;
+}
+
+.filter-label{
+  color : #15c187;
+}
+.field-control {
+  display: block;
+  width: 100%;
+  height: 25px;
+  padding: 6px 20px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
 }
 
 .result-container {
@@ -133,6 +142,8 @@ h3 .applied-filters {
     }
   }
 }
+
+
 
 .details-name {
   color:  rgb(42, 198, 148)
