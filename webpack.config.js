@@ -1,13 +1,12 @@
 var webpack = require('webpack');
 var path = require('path');
 
-var BUILD_DIR = path.resolve(__dirname, '/dist');
+var BUILD_DIR = path.resolve(__dirname, 'dist/');
 var APP_DIR = path.resolve(__dirname, 'src');
 
 var config = {
 
     entry: [
-    'webpack-hot-middleware/client',
     APP_DIR + '/index.js'
      ],
     output: {
@@ -15,10 +14,6 @@ var config = {
         filename: 'bundle.js',
         publicPath: './dist/'
     },
-		plugins: [
-		 new webpack.HotModuleReplacementPlugin(),
-		 new webpack.NoErrorsPlugin()
-	 ],
     module: {
         loaders: [
             {
@@ -27,7 +22,8 @@ var config = {
                 exclude: '/node_modules/',
                 include: APP_DIR,
                 query: {
-					         presets: ['es2015', 'react', 'stage-0']
+                    presets: ['es2015', 'react', 'stage-0'],
+                    plugins: ['antd']
                 }
             }, {
                 test: /\.css$/,

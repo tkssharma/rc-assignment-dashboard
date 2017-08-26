@@ -5,11 +5,10 @@
   "main": "index.js",
   "repository": "",
   "scripts": {
-    "watch": "webpack --config ./webpack.dev.config.js  --hot --inline",
     "scss-compile": "node-sass  public/css/main.scss -o public/css/",
     "watch-css": "nodemon -e scss -x \"npm run scss-compile\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "NODE_ENV=production webpack --config ./webpack.prod.config.js --w --hot --inline",
+    "build": "webpack --w",
     "start": "node server.js"
   },
   "author": "",
@@ -56,6 +55,7 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^1.0.2",
-    "scss-compile": "^0.1.7"
+    "scss-compile": "^0.1.7",
+    "throttle-debounce": "^1.0.1"
   }
 }

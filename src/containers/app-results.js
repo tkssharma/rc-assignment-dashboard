@@ -11,48 +11,48 @@ class AppResults extends Component {
     this.selectedCandidate = this.selectedCandidate.bind(this);
   }
   selectedCandidate(_data){
-    console.log(_data);
     this.props.setCandidateData(_data);
   }
 
   fetchList(){
-    if(this.props.candidates){
+    if(this.props.candidates && this.props.candidates.length > 0){
       return (
         <div>
-          <h5>showing {this.props.candidates.length} results</h5>
-          <div className="app-results">
-            <ResultList selectCandidate={this.selectedCandidate}  list={this.props.candidates}/>
-          </div>
+        <h5>showing {this.props.candidates.length} results</h5>
+        <div className="app-results">
+        <ResultList selectCandidate={this.selectedCandidate}  list={this.props.candidates}/>
+        </div>
         </div>
       )
-    }else{
-      <h5>loading....</h5>
+    }else if(this.props.candidates && this.props.candidates.message){
+      return (   <div> <h5>{this.props.candidates.message}</h5></div> );
+    }else {
+      return ( <div> <img className="loader" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" ></img></div> );
     }
   }
   render() {
-    console.log('again....');
     return (
       <div className="result-container">
-         {this.fetchList()}
+      {this.fetchList()}
       </div>
     )
   }
   componentWillMount () {
-      this.props.getDashboardData({});
+    this.props.getDashboardData({});
   }
 }
 
 
 const mapStateToProps = ( state ) => {
-	return {
-		candidates: state.candidates
-	}
+  return {
+    candidates: state.candidates
+  }
 }
 
 const mapDispatchToProps = ( dispatch, ownProps ) => {
-	return {
+  return {
     getDashboardData: (_filter) => dispatch( Action.getDashboardData(_filter) ),
     setCandidateData : (_data) => dispatch( Action.setCandidateData(_data) )
-	}
+  }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AppResults);
