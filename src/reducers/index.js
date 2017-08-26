@@ -3,8 +3,8 @@ import CandidatesReducer from './reducer_candidate';
 import ActiveCandidate from './reducer_active_candidate';
 
 const rootReducer = combineReducers({
-  candidates: ActiveCandidate ,
-  activeCandidate: CandidatesReducer
+   activeCandidate: ActiveCandidate ,
+   candidates : CandidatesReducer
 });
 
 export default rootReducer;

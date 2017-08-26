@@ -3,17 +3,24 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ResultList from '../components/search-result-list';
 import {message, notification} from 'antd';
+import Model from '../components/model';
 
 import * as Action from '../actions';
 class AppResults extends Component {
+
   constructor(props){
     super(props)
+    this.state = { 'model' : false}
     this.selectedCandidate = this.selectedCandidate.bind(this);
+    this.closeModel = this.closeModel.bind(this);
   }
   selectedCandidate(_data){
     this.props.setCandidateData(_data);
+    this.setState({'model' : true});
   }
-
+  closeModel(){
+    this.setState({'model' : false});
+  }
   fetchList(){
     if(this.props.candidates && this.props.candidates.length > 0){
       return (
@@ -30,10 +37,16 @@ class AppResults extends Component {
       return ( <div> <img className="loader" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" ></img></div> );
     }
   }
+  fetchActive(){
+    if(this.props.activeCandidate){
+      return (<Model closeModel={this.closeModel} show={this.state.model} data ={this.props.activeCandidate}/>)
+    }
+  }
   render() {
     return (
       <div className="result-container">
       {this.fetchList()}
+      {this.fetchActive()}
       </div>
     )
   }
@@ -45,7 +58,8 @@ class AppResults extends Component {
 
 const mapStateToProps = ( state ) => {
   return {
-    candidates: state.candidates
+    candidates: state.candidates,
+    activeCandidate : state.activeCandidate
   }
 }
 
