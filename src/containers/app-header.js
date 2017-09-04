@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as Action from '../actions';
 import {debounce} from 'throttle-debounce';
-
+import AutoSuggest from '../components/auto-suggest'
 
 class AppHeader extends Component {
   constructor(props){
