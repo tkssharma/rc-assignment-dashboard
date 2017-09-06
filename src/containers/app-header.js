@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as Action from '../actions';
-import {debounce} from 'throttle-debounce';
-//import AutoSuggest from '../components/auto-suggest'
+import AutoSuggest from '../components/auto-suggest'
 
 class AppHeader extends Component {
   constructor(props){
@@ -18,6 +17,12 @@ class AppHeader extends Component {
     }
     this.toggleFilters = this.toggleFilters.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
+  }
+  handleNameChange(name){
+    this.state.filter.name = name;
+    this.setState({'filter' : this.state.filter });
+    this.props.getDashboardData(this.state.filter);
   }
   toggleFilters(){
     this.setState({'applyFilter' : ! this.state.applyFilter});
@@ -50,7 +55,7 @@ class AppHeader extends Component {
       }
     }.bind(this));
     this.setState({'filter' : this.state.filter , 'filterCount' : _count});
-    debounce(1000,this.props.getDashboardData(this.state.filter));
+    this.props.getDashboardData(this.state.filter);
   }
 
   render() {
@@ -89,8 +94,8 @@ class AppHeader extends Component {
 
         </div>
         <div className="search">
-           <input placeholder="sort by name" id="name" className="field-control" type="text" onChange={this.handleChange}  />
-        </div>
+          <AutoSuggest handleNameChange={this.handleNameChange} userNames={this.props.candidates} />
+       </div>
       </div>
     );
   }
