@@ -13,14 +13,14 @@ Application to show Dashboard or to fetch data on UI
 
 ### Running Application with Yarn/NPM with Node > 6.x.x
 
--  npm install
--  npm run build
--  npm run start
+-  npm run install
+-  npm run start:dev
+-  npm run start:prod
 
 
 Application setup
 ==============
-- App require NPM Node installed 
+- App require NPM Node installed
 
 ```Javascript
   "devDependencies": {
