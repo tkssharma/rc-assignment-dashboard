@@ -1,5 +1,5 @@
 {
-  "name": "ps-redux",
+  "name": "reactassignment",
   "version": "1.0.0",
   "description": "Starter kit for React and Redux Pluralsight course by Cory House",
   "scripts": {
@@ -9,7 +9,6 @@
     "test": "mocha --reporter progress tools/testSetup.js src/*.test.js",
     "test:watch": "npm run test -- --watch",
     "build:dev": "babel-node tools/devBuild.js",
-
     "start:prod": "npm-run-all prerun clean-dist test build:html  build:prod startServer:prod",
     "clean-dist": "npm run remove-dist && mkdir dist",
     "remove-dist": "node_modules/.bin/rimraf ./dist",

@@ -23,124 +23,104 @@ Application setup
 - App require NPM Node installed
 
 ```Javascript
-  "devDependencies": {
-    "babel": "6.5.2",
-    "babel-eslint": "^7.1.1",
-    "babel-loader": "6.2.5",
-    "babel-plugin-antd": "0.5.1",
-    "babel-preset-es2015": "6.14.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-react-hmre": "^1.1.1",
-    "babel-preset-stage-0": "^6.5.0",
-    "babel-preset-stage-1": "6.13.0",
-    "css-loader": "^0.23.1",
-    "file-loader": "^0.8.5",
-    "sass-loader": "^3.2.0",
-    "style-loader": "^0.13.1",
-    "url-loader": "^0.5.6",
-    "webpack": "^1.12.14",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-dev-server": "1.16.1",
-    "webpack-hot-middleware": "^2.10.0"
-  },
-  "dependencies": {
-    "antd": "^2.12.7",
-    "axios": "^0.16.2",
-    "babel-core": "^6.22.1",
-    "body-parser": "^1.15.2",
-    "express": "^4.14.0",
-    "extract-text-webpack-plugin": "^0.8.2",
-    "file-loader": "^0.10.1",
-    "history": "4.2.0",
-    "immutable": "3.8.1",
-    "jest": "^19.0.2",
-    "less": "^2.5.1",
-    "less-loader": "^2.2.3",
-    "node-sass": "^3.2.0",
-    "react": "^15.3.0",
-    "react-addons-test-utils": "^15.4.2",
-    "react-dom": "^15.3.0",
-    "react-redux": "^4.4.0",
-    "react-router-redux": "4.0.6",
-    "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0",
-    "sass-loader": "^1.0.2",
-    "scss-compile": "^0.1.7",
-    "throttle-debounce": "^1.0.1"
-  }
+"scripts": {
+  "prerun": "babel-node tools/startMessage.js",
+  "start:dev": "npm-run-all prerun test build:dev startServer:dev",
+  "startServer:dev": "babel-node tools/srcServer.js",
+  "test": "mocha --reporter progress tools/testSetup.js src/*.test.js",
+  "test:watch": "npm run test -- --watch",
+  "build:dev": "babel-node tools/devBuild.js",
+  "start:prod": "npm-run-all prerun clean-dist test build:html  build:prod startServer:prod",
+  "clean-dist": "npm run remove-dist && mkdir dist",
+  "remove-dist": "node_modules/.bin/rimraf ./dist",
+  "build:html": "babel-node tools/buildHtml.js",
+  "build:prod": "babel-node tools/prodBuild.js",
+  "startServer:prod": "babel-node tools/distServer.js"
+},
+"author": "tkssharma",
+"license": "MIT",
+"dependencies": {
+  "antd": "^2.13.0",
+  "axios": "^0.16.2",
+  "babel-polyfill": "6.8.0",
+  "bootstrap": "3.3.6",
+  "jquery": "2.2.3",
+  "less-loader": "^4.0.5",
+  "node-sass": "^4.5.3",
+  "react": "15.0.2",
+  "react-autosuggest": "^9.3.2",
+  "react-dom": "15.0.2",
+  "react-redux": "4.4.5",
+  "react-router": "2.4.0",
+  "react-router-redux": "4.0.4",
+  "redux": "3.5.2",
+  "redux-thunk": "2.0.1",
+  "sass-loader": "^6.0.6",
+  "scss-loader": "^0.0.1",
+  "toastr": "2.1.2",
+  "webpack-dev-server": "^2.7.1"
+}
 
 ```
+- Webpack with HotModuleReplacementPlugin
+
 
 ```Javascript
-var webpack = require('webpack');
-var path = require('path');
+import webpack from 'webpack';
+import path from 'path';
 
-var BUILD_DIR = path.resolve(__dirname, 'dist/');
-var APP_DIR = path.resolve(__dirname, 'src');
-
-var config = {
-
-    entry: [
-    APP_DIR + '/index.js'
-     ],
-    output: {
-        path: BUILD_DIR,
-        filename: 'bundle.js',
-        publicPath: './dist/'
-    },
-    module: {
+export default {
+  debug: true,
+  devtool: 'cheap-module-eval-source-map',
+  noInfo: false,
+  entry: [
+    'eventsource-polyfill', // necessary for hot reloading with IE
+    'webpack-hot-middleware/client?reload=true', //note that it reloads the page if hot module reloading fails.
+    './src/index'
+  ],
+  target: 'web',
+  output: {
+    path: __dirname + '/src', // Note: Physical files are only output by the production build task `npm run build`.
+    publicPath: '/',
+    filename: 'bundle.js'
+  },
+  devServer: {
+    contentBase: './src'
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ],
+  module: {
+    loaders: [
+      {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
+      {test: /(\.css)$/, loaders: ['style', 'css']},
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        loader: "style-loader!css-loader"
+      }, {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        loader: "style-loader!css-loader!sass-loader"
+      }, {
+        test: /\.less?$/,
         loaders: [
-            {
-                test: /\.js$/,
-                loader: 'babel',
-                exclude: '/node_modules/',
-                include: APP_DIR,
-                query: {
-                    presets: ['es2015', 'react', 'stage-0'],
-                    plugins: ['antd']
-                }
-            }, {
-                test: /\.css$/,
-                exclude: /node_modules/,
-                loader: "style-loader!css-loader"
-            }, {
-                test: /\.scss$/,
-                exclude: /node_modules/,
-                loader: "style-loader!css-loader!sass-loader"
-            }, {
-                test: /\.less?$/,
-                loaders: [
-                    'style-loader', 'css-loader', 'less-loader?{"sourceMap":true}'
-                ],
-                include: __dirname
-            }, {
-                test: /\.(png|jpg|ttf|eot)$/,
-                exclude: /node_modules/,
-                loader: 'url-loader?limit=10000'
-            },
-               {
-                  test: /\.json$/,
-                  loader: 'json',
-                },
-        ]
-    },
-    resolve: {
-        alias: {
-            app: APP_DIR
-        }
-    },
-    node: {
-        net: 'empty',
-        dns: 'empty'
-    }
+          'style-loader', 'css-loader', 'less-loader?{"sourceMap":true}'
+        ],
+        include: __dirname
+      },
+      {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"},
+      {test: /\.(woff|woff2)$/, loader: "url?prefix=font/&limit=5000"},
+      {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream"},
+      {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml"}
+    ]
+  }
 };
-
-module.exports = config;
-
 ```
 
 once application running on localhost :
-http://localhost:3014
+http://localhost:port
 
 
 Contact
